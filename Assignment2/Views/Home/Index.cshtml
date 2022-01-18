@@ -1,0 +1,42 @@
+﻿
+
+
+
+<h2>Index</h2>
+<div class="container-fluid">
+    <h2>Currency Denomination</h2>
+    @{ List<int> Denomination = new List<int>() { 1000, 500, 100, 10, 1 };
+        List<int> Currencycount = new List<int>();
+        if (ViewBag.amount > 0)
+        {
+            int temp = ViewBag.amount;
+            foreach (int denomination in Denomination)
+            {
+                int currcount = Convert.ToInt32(temp / denomination);
+                Currencycount.Add(currcount);
+                temp = temp - (currcount * denomination);
+
+            }
+        }
+    }
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Denomination</th>
+                <th>Count</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @for (int i = 0; i < Currencycount.Count; i++)
+            {
+<tr>
+    <td>@Denomination[i]</td>
+    <td>@Currencycount[i]</td>
+    <td>@(Denomination[i] * Currencycount[i])</td>
+</tr>            }
+        </tbody>
+    </table>
+</div>
