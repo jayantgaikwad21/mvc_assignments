@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Contact";
+    //Layout = "~/Views/shared/_LayoutPage1.cshtml";
+}
+
+<h2>Contact layout</h2>
+@{
+    ViewBag.Message = "Contact our Customer care representative";
+}
+@{
+    ViewBag.ListTitle = "Contact Details";
+    ViewBag.Items = new List<string>() { "contact manager", "Contact Agent", "Corporate office" };
+    Html.RenderPartial("ListPartialView");
+
+}
+
+@section SideSectionview{
+
+    <a href="#" class=" list-group-item text-dark" style="background-color:transparent">Cotact Admin </a>
+    <a href="#" class=" list-group-item text-dark" style="background-color:transparent"> Contact Agent</a>
+    <a href="#" class=" list-group-item text-dark" style="background-color:transparent">Contact Customer</a>
+
+
+}
