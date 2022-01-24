@@ -1,0 +1,22 @@
+﻿@model List<EFDbFirstApproach1.Models.Category>
+
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>categories</h2>
+<table class="table">
+    <tr>
+        <th>Categories ID</th>
+        <th>Categories Name</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.CategoryId</td>
+            <td>@item.CategoryName</td>
+        </tr>
+
+    }
+</table>

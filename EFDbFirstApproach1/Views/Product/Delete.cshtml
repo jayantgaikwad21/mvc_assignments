@@ -1,0 +1,27 @@
+﻿
+@model EFDbFirstApproach1.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Delete</h2>
+<form action="/Product/edit/@Model.ProductId" method="post">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="ProductName">Product Name</label>
+            <input type="hidden" name="ProductId" value="@Model.ProductId">
+            @Model.ProductName
+        </div>
+       
+        <div class="form-group col-md-6">
+            <label for="ProductName">Price</label>
+            @Model.Price
+            </div>
+            <button type="submit" class="btn btn-success">delete</button>
+            <a class="btn btn-danger" href="/Product/index">Cancel</a>
+        </div>
+            
+</form>
+
