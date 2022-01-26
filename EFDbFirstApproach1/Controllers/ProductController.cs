@@ -27,7 +27,6 @@ namespace EFDbFirstApproach1.Controllers
         public ActionResult Create()
         {
             EFDBFirstDatabaseEntities db = new EFDBFirstDatabaseEntities();
-
             return View();
         }
 
@@ -35,6 +34,16 @@ namespace EFDbFirstApproach1.Controllers
         public ActionResult Create(Product p)
         {
             EFDBFirstDatabaseEntities db = new EFDBFirstDatabaseEntities();
+            if (Request.Files.Count >= 1)
+            {
+                var file = Request.Files[0];
+                var imgBytes = new Byte[file.ContentLength - 1];
+                file.InputStream.Read(imgBytes, 0, file.ContentLength);
+                var Base64String = Convert.ToBase64String(imgBytes, 0, imgBytes.Length);
+                p.Photo = Base64String;
+
+            }
+
             db.Products.Add(p);
             db.SaveChanges();
             return RedirectToAction("Index");
