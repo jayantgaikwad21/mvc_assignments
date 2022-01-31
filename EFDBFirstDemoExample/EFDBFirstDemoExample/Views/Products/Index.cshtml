@@ -1,0 +1,246 @@
+﻿@model List<EFDBFirstDemoExample.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/shared/_LayoutPage1.cshtml";
+}
+
+<h2>Products Detail</h2>
+<a href="/Products/create">Create</a>
+
+<form class="form-inline" action="/Products/Index">
+    @*<label for="search" class="mr-1">Search</label>*@
+    @Html.Label("search", new {@class="mr-1"})
+        
+    @*<input type="search" class="form-control-mr-1" id="search" name="search" placeholder="Search" value="@ViewBag.search" />*@
+    @Html.TextBox("search", ViewBag.search as string , new {@class="form-control-mr-1", placeholder="search"})
+    <button type="submit" class="btn btn-primary">GO</button>
+</form>
+
+<table class="table">
+    <tr class="table-secondary">
+        <th style="width:10%">
+            @if (ViewBag.IconClass == "fa-sort-desc")
+            {
+                <a href="/Products/Index?SortColumn=ProductId&IconClass=fa-sort-asc&PageNo=1">ProductId</a>
+                if (ViewBag.SortColumn == "ProductId")
+                {
+                    <i class="fa@ViewBag.IconClass"></i>
+                }
+            }
+            else
+            {
+                <a href="/Products/Index?SortColumn=ProductId&IconClass=fa-sort-desc&PageNo=1">ProductId</a>
+                if(ViewBag.SortColumn == "ProductId")
+                {
+                    <i class="fa@ViewBag.IconClass"></i>
+                }
+
+            }
+            
+            
+        </th>
+        <th style="width:30%">
+            @if (ViewBag.IconClass == "fa-sort-desc")
+            {
+                <a href="/Products/Index?SortColumn=ProductName&IconClass=fa-sort-asc&PageNo=1">Product Name</a>
+                if (ViewBag.SortColumn == "ProductName")
+                {
+                    <i class="fa@ViewBag.IconClass"></i>
+                }
+            }
+            else
+            {
+                <a href="/Products/Index?SortColumn=ProductName&IconClass=fa-sort-desc&PageNo=1">Product Name</a>
+                if (ViewBag.SortColumn == "ProductName")
+                {
+                    <i class="fa@ViewBag.IconClass"></i>
+                }
+
+            }
+        </th>
+        <th style="width:5%">
+            @if (ViewBag.IconClass == "fa-sort-desc")
+            {
+                <a href="/Products/Index?SortColumn=Price&IconClass=fa-sort-asc&PageNo=1">Product price</a>
+                if (ViewBag.SortColumn == "Price")
+                {
+                    <i class="fa@ViewBag.IconClass"></i>
+                }
+            }
+            else
+            {
+                <a href="/Products/Index?SortColumn=Price&IconClass=fa-sort-desc&PageNo=1">ProductId</a>
+                if (ViewBag.SortColumn == "Price")
+                {
+                    <i class="fa@ViewBag.IconClass"></i>
+                }
+
+            }
+        </th>
+        <th style="width:10%">
+            @if (ViewBag.IconClass == "fa-sort-desc")
+            {
+                <a href="/Products/Index?SortColumn=DateOfPurchase&IconClass=fa-sort-asc&PageNo=1">Date of Purchase</a>
+                if (ViewBag.SortColumn == "DateOfPurchase")
+                {
+                    <i class="fa@ViewBag.IconClass"></i>
+                }
+            }
+            else
+            {
+                <a href="/Products/Index?SortColumn=DateOfPurchase&IconClass=fa-sort-desc&PageNo=1">ProductId</a>
+                if (ViewBag.SortColumn == "DateOfPurchase")
+                {
+                    <i class="fa@ViewBag.IconClass"></i>
+                }
+
+            }
+        </th>
+        <th style="width:10%">
+            @if (ViewBag.IconClass == "fa-sort-desc")
+            {
+                <a href="/Products/Index?SortColumn=AvailabilityStatus&IconClass=fa-sort-asc">Availability Status</a>
+                if (ViewBag.SortColumn == "AvailabilityStatus")
+                {
+                    <i class="fa@ViewBag.IconClass"></i>
+                }
+            }
+            else
+            {
+                <a href="/Products/Index?SortColumn=AvailabilityStatus&IconClass=fa-sort-desc&PageNo=1">Availability Status</a>
+                if (ViewBag.SortColumn == "AvailabilityStatus")
+                {
+                    <i class="fa@ViewBag.IconClass"></i>
+                }
+
+            }
+        </th>
+        <th style="width:10%">
+            @if (ViewBag.IconClass == "fa-sort-desc")
+            {
+                <a href="/Products/Index?SortColumn=CategoryId&IconClass=fa-sort-asc&PageNo=1">Category</a>
+                if (ViewBag.SortColumn == "CategoryId")
+                {
+                    <i class="fa@ViewBag.IconClass"></i>
+                }
+            }
+            else
+            {
+                <a href="/Products/Index?SortColumn=CategoryId&IconClass=fa-sort-desc&PageNo=1">Category</a>
+                if (ViewBag.SortColumn == "CategoryId")
+                {
+                    <i class="fa@ViewBag.IconClass"></i>
+                }
+
+            }
+        </th>
+        <th style="width:10%">
+            @if (ViewBag.IconClass == "fa-sort-desc")
+            {
+                <a href="/Products/Index?SortColumn=BrandId&IconClass=fa-sort-asc&PageNo=1">Brands</a>
+                if (ViewBag.SortColumn == "BrandId")
+                {
+                    <i class="fa@ViewBag.IconClass"></i>
+                }
+            }
+            else
+            {
+                <a href="/Products/Index?SortColumn=BrandId&IconClass=fa-sort-desc&PageNo=1">Brands</a>
+                if (ViewBag.SortColumn == "BrandId")
+                {
+                    <i class="fa@ViewBag.IconClass"></i>
+                }
+
+            }
+        </th>
+      
+        <th style="width:5%">
+        status
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td><img src="data:image;base64,@item.Photo" width="100px" /></td>
+    @*<td>@item.ProductId</td>*@
+    <td> @Html.DisplayFor(temp => item.ProductId)   </td>           @*//html helper class*@
+    @*<td>@item.ProductName</td>*@
+<td>@Html.DisplayFor(temp => item.ProductName)</td> 
+
+    @*<td>@item.Price.Value.ToString("C")</td>*@
+<td>@Html.DisplayFor(temp => item.Price)</td>
+    @*<td>@item.DateOfPurchase.Value.ToString("d/M/yyyy")</td>*@
+<td>@Html.DisplayFor(temp => item.DateOfPurchase)</td>
+    <td>@item.AvailabilityStatus</td>
+    <td>
+        @if (item.Category != null)
+        {
+
+            @*<span>@item.Category.CategoryName</span>*@
+          @Html.DisplayFor(temp=>item.Category.CategoryName)
+        }
+    </td>
+
+    <td>
+        @if (item.Brand != null)
+        {
+            @*<span>@item.Brand.BrandName</span>*@
+            @Html.DisplayFor(temp => item.Brand.BrandName)
+        }
+    </td>
+
+    @*<td>@item.Active</td>*@
+<td> @Html.DisplayFor(temp => item.Active)</td>
+    <td>
+        @Html.ActionLink("Details", "Details", new { id = item.ProductId, controller = "Products" })
+        @Html.ActionLink("edit", "edit", new { id = item.ProductId, controller = "Products" })
+        @Html.ActionLink("delete", "delete", new { id = item.ProductId, controller = "Products" })
+        @*<a href="/Products/Details/@item.ProductId">Details</a>
+        <a href="/Products/edit/@item.ProductId">Edit</a>
+        <a href="/Products/delete/@item.ProductId">Delete</a>*@
+    </td>
+
+
+</tr>
+    }
+<tr>
+    <td colspan="9">
+        @{ int PrevPageNo = ViewBag.PageNo - 1;
+                        if (PrevPageNo <= 0)
+                        {
+                            PrevPageNo = 1;
+                        }
+
+                        int NextPageNo = ViewBag.PageNo + 1;
+                        if (NextPageNo > ViewBag.NoOfPages)
+                        {
+                            NextPageNo = ViewBag.NoOfPages;
+                        } }
+        <ul class="pagination justify-content-center">
+            <li class="page-item active">
+                <a class="page-link" href="/products/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&PageNo=@PrevPageNo">Prev</a>
+            </li>
+            @for (int i = 0; i < ViewBag.NoOfPages; i++)
+            {
+                if ((i + 1) == ViewBag.PageNo)
+                {
+<li class="page-item active">
+    <a class="page-link" href="/products/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&PageNo=@(i+1)">@(i+1)</a>
+</li> }
+                else
+                {
+<li class="page-item">
+    <a class="page-link" href="/products/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&PageNo=@(i+1)">@(i+1)</a>
+</li>                }
+
+            }
+            <li class="page-item active">
+                <a class="page-link" href="/products/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&PageNo=@NextPageNo">Next</a>
+            </li>
+        </ul>
+    </td>
+</tr>
+</table>
+
+
