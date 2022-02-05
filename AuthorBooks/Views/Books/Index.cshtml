@@ -1,0 +1,262 @@
+﻿@model List<AuthorBooks.Models.Book>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+
+<style>
+    .imgs{
+        width:100px;
+    }
+</style>
+
+<h2>Index</h2>
+
+
+<form action="/Books/Index">
+    <div class="form-group">
+        <a href="#" class="list-group-item text-white" style="background-color:transparent">Search Using...</a>
+        <ul class="list-group" style="background-color:transparent">
+            <li class="list-group-item" style="background-color:transparent"><input type="text" name="BookName" placeholder="Book Name" class="form-control" value="@ViewBag.BookName" /></li>
+            <li class="list-group-item" style="background-color:transparent"><input type="text" name="AuthorName" placeholder="AuthorName" class="form-control" value="@ViewBag.AuthorName" /></li>
+          
+            <li class="list-group-item" style="background-color:transparent"><button type="submit" class="btn btn-dark" >Search</button></li>
+        </ul>
+    </div>
+</form>
+
+    <a class="btn btn-success" style="margin-left:20px" href="/Books/create">Create</a>
+
+   
+    <table class="table">
+
+        <tr class="table-secondary">
+            <th style="width:20%">Photo</th>
+            <th style="width:10%">
+                @if (ViewBag.IconClass == "fa-sort-desc")
+                {
+                    <a href="/Books/Index?SortColumn=BookId&IconClass=fa-sort-asc&PageNo=1">BookId</a>
+                    if (ViewBag.SortColumn == "BookId")
+                    {
+                        <i class="fa@ViewBag.IconClass"></i>
+                    }
+                }
+                else
+                {
+                    <a href="/Books/Index?SortColumn=BookId&IconClass=fa-sort-desc&PageNo=1">BookId</a>
+                    if (ViewBag.SortColumn == "BookId")
+                    {
+                        <i class="fa@ViewBag.IconClass"></i>
+                    }
+
+                }
+
+
+            </th>
+            <th style="width:20%">
+                @if (ViewBag.IconClass == "fa-sort-desc")
+                {
+                    <a href="/Books/Index?SortColumn=BookName&IconClass=fa-sort-asc&PageNo=1">Book Name</a>
+                    if (ViewBag.SortColumn == "BookName")
+                    {
+                        <i class="fa@ViewBag.IconClass"></i>
+                    }
+                }
+                else
+                {
+                    <a href="/Books/Index?SortColumn=BookName&IconClass=fa-sort-desc&PageNo=1">Book Name</a>
+                    if (ViewBag.SortColumn == "BookName")
+                    {
+                        <i class="fa@ViewBag.IconClass"></i>
+                    }
+
+                }
+            </th>
+            <th style="width:5%">
+                @if (ViewBag.IconClass == "fa-sort-desc")
+                {
+                    <a href="/Books/Index?SortColumn=BookISBN&IconClass=fa-sort-asc&PageNo=1">Book ISBN</a>
+                    if (ViewBag.SortColumn == "BookISBN")
+                    {
+                        <i class="fa@ViewBag.IconClass"></i>
+                    }
+                }
+                else
+                {
+                    <a href="/Books/Index?SortColumn=BookISBN&IconClass=fa-sort-desc&PageNo=1">Book ISBN</a>
+                    if (ViewBag.SortColumn == "BookISBN")
+                    {
+                        <i class="fa@ViewBag.IconClass"></i>
+                    }
+
+                }
+            </th>
+            <th style="width:10%">
+
+                @if (ViewBag.IconClass == "fa-sort-desc")
+                {
+                    <a href="/Books/Index?SortColumn=DateOfPublish&IconClass=fa-sort-asc&PageNo=1">Date of Publish</a>
+                    if (ViewBag.SortColumn == "DateOfPublish")
+                    {
+                        <i class="fa@ViewBag.IconClass"></i>
+                    }
+                }
+                else
+                {
+                    <a href="/Books/Index?SortColumn=DateOfPublish&IconClass=fa-sort-desc&PageNo=1">Date of Publish</a>
+                    if (ViewBag.SortColumn == "DateOfPublish")
+                    {
+                        <i class="fa@ViewBag.IconClass"></i>
+                    }
+
+                }
+            <th style="width:10%">
+                @if (ViewBag.IconClass == "fa-sort-desc")
+                {
+                    <a href="/Books/Index?SortColumn=AuthorId&IconClass=fa-sort-asc&PageNo=1">Author</a>
+                    if (ViewBag.SortColumn == "AuthorId")
+                    {
+                        <i class="fa@ViewBag.IconClass"></i>
+                    }
+                }
+                else
+                {
+                    <a href="/Books/Index?SortColumn=AuthorId&IconClass=fa-sort-desc&PageNo=1">Author</a>
+                    if (ViewBag.SortColumn == "AuthorId")
+                    {
+                        <i class="fa@ViewBag.IconClass"></i>
+
+                    }
+                }
+
+            </th>
+            <th colspan="2">Action</th>
+
+        </tr>
+
+
+        @foreach (var item in Model)
+        {
+    <tr id="row_@item.BookId">
+        <td><img src="data:image;base64,@item.Photo" width="100px" /></td>
+           <td>@item.BookId</td>
+
+        <td>@item.BookName</td>
+        <td>@item.BookISBN</td>
+        <td>@item.DateOfPublish</td>
+        <td>@item.Author.AuthorName</td>
+
+
+
+        <td>
+            <a class="btn btn-dark" href="/Books/Details/@item.BookId">Details</a>
+            <a class="btn btn-success" href="/Books/edit/@item.BookId">Edit</a>
+            <a class="btn btn-danger" href="#" onclick="ConfirmDelete(@item.BookId)">Delete</a>
+
+        </td>
+
+    </tr>
+
+
+
+        }
+        <tr>
+            <td colspan="9">
+                @{ int PrevPageNo = ViewBag.PageNo - 1;
+                    if (PrevPageNo <= 0)
+                    {
+                        PrevPageNo = 1;
+                    }
+
+                    int NextPageNo = ViewBag.PageNo + 1;
+                    if (NextPageNo > ViewBag.NoOfPages)
+                    {
+                        NextPageNo = ViewBag.NoOfPages;
+                    } }
+                <ul class="pagination justify-content-center">
+                    <li class="page-item active">
+                        <a class="page-link" href="/Books/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&PageNo=@PrevPageNo">Prev</a>
+                    </li>
+                    @for (int i = 0; i < ViewBag.NoOfPages; i++)
+                    {
+                        if ((i + 1) == ViewBag.PageNo)
+                        {
+                            <li class="page-item active">
+                                <a class="page-link" href="/Books/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&PageNo=@(i+1)">@(i+1)</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="/Books/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&PageNo=@(i+1)">@(i+1)</a>
+                            </li>
+                        }
+
+                    }
+                    <li class="page-item active">
+                        <a class="page-link" href="/Books/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&PageNo=@NextPageNo">Next</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+
+
+    </table>
+
+    <input type="hidden" id="hiddenBookId" />
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Delete Book</h3>
+                </div>
+                <div class="modal-body">
+                    <h6>Are you sure ? You want to delete Book</h6>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-secondary" onclick="cancel()" data-dismiss="modal">Cancel</a>
+                    <a href="#" class="btn btn-danger" onclick="Delete()">Confirm</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+
+        var ConfirmDelete = function (BookId) {
+
+            $("#hiddenBookId").val(BookId);
+            $("#myModal").modal('show');
+
+        }
+
+        var Delete = function () {
+
+            $("#loaderDiv").show();
+
+            var BookId = $("#hiddenBookId").val();
+
+            $.ajax({
+
+                type: "POST",
+                url: "/Books/Delete",
+                data: { ID: BookId },
+                success: function (result) {
+                    $("#loaderDiv").hide();
+                    $("#myModal").modal("hide");
+                    $("#row_" + BookId).remove();
+
+                }
+
+            })
+
+        }
+        var cancel = function () {
+            $("#myModal").modal("hide");
+        }
+
+    </script>

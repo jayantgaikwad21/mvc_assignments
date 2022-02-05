@@ -1,0 +1,83 @@
+﻿@model List<AuthorBooks.Models.Author>
+@{ ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml"; }
+
+<h2>Author details</h2>
+<a href="/Author/create/" class="btn btn-outline-primary">Add Author</a>
+<table class="table">
+    <tr>
+        <th>Author Id</th>
+        <th>Author Name</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+       <tr id="row_@item.AuthorId">
+       <td>@item.AuthorId</td>
+       <td>@item.AuthorName</td>
+
+    <td>
+        <a class="btn btn-danger" href="#" onclick="ConfirmDelete(@item.AuthorId)">Delete</a>
+    </td>
+</tr>
+    }
+
+</table>
+
+
+
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Author</h3>
+            </div>
+            <div class="modal-body">
+                <h6>Are you sure ? You want to delete Author</h6>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-secondary" onclick="cancel()" data-dismiss="modal">Cancel</a>
+                <a href="#" class="btn btn-danger" onclick="Delete()">Confirm</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<input type="hidden" id="hiddenAuthorId" />
+<script>
+
+    var ConfirmDelete = function (AuthorId) {
+
+        $("#hiddenAuthorId").val(AuthorId);
+        $("#myModal").modal('show');
+
+    }
+
+    var Delete = function () {
+
+        $("#loaderDiv").show();
+
+        var AuthorId = $("#hiddenAuthorId").val();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Author/Delete",
+            data: { ID: AuthorId },
+            success: function (result) {
+                $("#loaderDiv").hide();
+                $("#myModal").modal("hide");
+                $("#row_" + AuthorId).remove();
+
+            }
+
+        })
+
+    }
+    var cancel = function () {
+        $("#myModal").modal("hide");
+    }
+
+</script>

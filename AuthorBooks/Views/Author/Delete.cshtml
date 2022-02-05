@@ -1,0 +1,20 @@
+﻿@model AuthorBooks.Models.Author
+@{ ViewBag.Title = "Delete";
+                Layout = "~/Views/shared/_LayoutPage1.cshtml"; }
+
+<h2>delete Author Record</h2>
+<form action="/Author/Delete/@Model.AuthorId" method="post">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="AuthorName">Author Name</label>
+            <input type="hidden" name="AuthorId" value="@Model.AuthorId" />
+
+            @Model.AuthorName
+        </div>
+
+    </div>
+        <button type="submit" class="btn btn-success">Delete</button>
+        <a class="btn btn-danger" href="/Author/Index">Cancle</a>
+    
+</form>
+

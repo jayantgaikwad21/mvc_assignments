@@ -1,0 +1,50 @@
+﻿
+
+@model AuthorBooks.Models.Book
+@{ ViewBag.Title = "create";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>create</h2>
+@using (Html.BeginForm("create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+<div class="form-row">
+    @Html.LabelFor(temp => temp.BookName)
+    @Html.TextBoxFor(temp => temp.BookName, new { placeholder = "Book Name", @class = "form-control" })
+    @Html.ValidationMessageFor(temp => temp.BookName)
+
+
+
+</div>
+
+<div class="form-row">
+    @Html.LabelFor(temp => temp.BookISBN)
+    @Html.TextBoxFor(temp => temp.BookISBN, new { placeholder = "BookISBN", @class = "form-control" })
+    @Html.ValidationMessageFor(temp => temp.BookISBN)
+
+</div>
+<div class="form-row">
+    @Html.LabelFor(temp => temp.DateOfPublish)
+    @Html.TextBoxFor(temp => temp.DateOfPublish, new { placeholder = "Date of Publish", @class = "form-control" })
+    @Html.ValidationMessageFor(temp => temp.DateOfPublish)
+
+</div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(temp => temp.Author)
+            @Html.DropDownListFor(temp => temp.AuthorId, new SelectList(@ViewBag.Authors, "AuthorId", "AuthorName"), "please select", new { @class = "form-control" })
+            @Html.ValidationMessageFor(temp => temp.Author)
+        </div>
+
+    </div>
+    <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" class="form-control-file" id="Image" name="Photo" />
+        </div>
+
+    <button type="submit" class="btn btn-success">Create</button>
+                    <a class="btn btn-danger" href="/Books/Index">Cancle</a>
+   }

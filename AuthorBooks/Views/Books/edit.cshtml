@@ -1,0 +1,59 @@
+﻿@model AuthorBooks.Models.Book
+@{
+    ViewBag.Title = "edit";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>edit</h2>
+
+
+<form action="/Books/edit/@Model.BookId" method="post">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="BookName">Book Name</label>
+            <input type="hidden" name="BookId" value="@Model.BookId" />
+            <input type="text" class="form-control" id="BookName" placeholder="Book Name" name="BookName" value="@Model.BookName" />
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="BookISBN">BookISBN</label>
+            <input type="text" class="form-control" id="BookISBN" placeholder="BookISBN" name="BookISBN" value="@Model.BookISBN" />
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="DateOfPublish">DateOfPublish</label>
+            <input type="text" class="form-control" id="DateOfPublish" placeholder="DateOfPublish" name="DateOfPublish" value="@Model.DateOfPublish" />
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="AuthorId">Author Name</label>
+            <select class="form-control" id="AuthorId" placeholder="Author id" name="AuthorId" value="@Model.AuthorId">
+                <option value="">Please Select</option>
+                @foreach (var Auth in ViewBag.Authors)
+                {
+                    if (Auth.AuthorId == Model.AuthorId)
+                    {
+                        <option value="@Auth.AuthorId" selected="selected">@Auth.AuthorName</option>
+                        <a href="~/Views/Books/">~/Views/Books/edit.cshtml</a>
+ }
+                    else
+                    {
+                        <option value="@Auth.AuthorId">@Auth.AuthorName</option>
+}
+
+                }
+            </select>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label for="Image">Image</label>
+        <img src="@Url.Content(Model.Photo)" width="80" height="80" />
+        <input type="file" class="form-control-file" id="file" name="Photo" />
+    </div>
+
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a class="btn btn-danger" href="/Books/index">Cancle</a>
+</form>

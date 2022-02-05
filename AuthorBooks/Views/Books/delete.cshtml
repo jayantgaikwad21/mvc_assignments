@@ -1,0 +1,21 @@
+﻿
+@model AuthorBooks.Models.Book
+@{ ViewBag.Title = "delete";
+    Layout = "~/Views/shared/_LayoutPage1.cshtml"; }
+
+<h2>delete Book Record</h2>
+<form action="/Book/Delete/@Model.BookId" method="post">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="BookName">Book Name</label>
+            <input type="hidden" name="AuthorId" value="@Model.BookId" />
+
+            @Model.BookName
+        </div>
+
+    </div>
+    <button type="submit" class="btn btn-success">Delete</button>
+    <a class="btn btn-danger" href="/Book/Index">Cancle</a>
+
+</form>
+

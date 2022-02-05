@@ -1,0 +1,21 @@
+﻿
+@model AuthorBooks.Models.Author
+@{ ViewBag.Title = "create";
+                Layout = "~/Views/shared/_LayoutPage1.cshtml"; }
+<h2>Add Author</h2>
+
+
+@using (Html.BeginForm("create", "Author", FormMethod.Post))
+{
+<div class="form-row">
+    @Html.LabelFor(temp => temp.AuthorId)
+    @Html.TextBoxFor(temp => temp.AuthorId, new { placeholder = "Author Id ", @class = "form-control" })
+</div>
+                <div class="form-row">
+                    @Html.LabelFor(temp => temp.AuthorName)
+                    @Html.TextBoxFor(temp => temp.AuthorName, new { placeholder = "Author Name", @class = "form-control" })
+                </div>
+                                <button type="submit" class="btn btn-success">Create</button>
+                                                <a class="btn btn-danger" href="/Author/Index">Cancle</a>
+ }
+
